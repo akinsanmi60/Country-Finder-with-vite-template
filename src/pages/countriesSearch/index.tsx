@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { CountryProp } from "../../types/type";
 import { BoxWrap } from "./styles";
 import SearchInput from "../../common/searchInput";
+import CountryLogo from "../../assets/CountrySearchlogo.svg";
 
 function CountriesPage() {
   return (
     <BoxWrap>
       <div className="contentBox">
-        <h1>Country Search</h1>
-
+        <img src={CountryLogo} alt="" />
         <SearchInput />
       </div>
     </BoxWrap>

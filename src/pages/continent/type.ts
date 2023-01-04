@@ -1,19 +1,6 @@
-type CurrencyProp = {
-  [x: string]: {
-    name: string;
-    symbol: string;
-  };
-};
-
 type DemonymsProp = {
-  eng: {
-    f: string;
-    m: string;
-  };
-  fra: {
-    f: string;
-    m: string;
-  };
+  f: string;
+  m: string;
 };
 
 type FlagProp = {
@@ -26,9 +13,15 @@ type CountryTranslation = {
   official: string;
 };
 
-export type CountryProp = {
+type CurrencyProp = {
+  name: string;
+  symbol: string;
+};
+
+export type ContinentProp = {
   altSpellings: string[];
   area: number;
+  borders: string[];
   capital: [string];
   capitalInfo: {
     latlng: number[];
@@ -43,13 +36,19 @@ export type CountryProp = {
   cioc: string;
   coatOfArms: FlagProp;
   continents: string[];
-  currencies: CurrencyProp;
-  demonyms: DemonymsProp;
+  currencies: {
+    [x: string]: CurrencyProp;
+  };
+  demonyms: {
+    [x: string]: DemonymsProp;
+  };
   fifa: string;
   flag: string;
   flags: FlagProp;
   independent: boolean;
-  languages: { [x: string]: string };
+  languages: {
+    [x: string]: string;
+  };
   latlng: number[];
   maps: {
     googleMaps: string;
@@ -70,12 +69,7 @@ export type CountryProp = {
   timezones: string[];
   tld: string[];
   translations: {
-    ara: CountryTranslation;
-    fra: CountryTranslation;
-    ita: CountryTranslation;
-    kor: CountryTranslation;
-    jpn: CountryTranslation;
-    spa: CountryTranslation;
+    [x: string]: CountryTranslation;
   };
   unMember: boolean;
 };

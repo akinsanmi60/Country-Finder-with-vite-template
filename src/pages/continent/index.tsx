@@ -1,14 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import DisplayPage from "../../common/DisplayCountries";
 import SearchContext from "../../contexts/ValueContext";
 import OuterLayout from "../../styles/layout";
-import { CountryProp } from "../../types/type";
 import { continentUrl, getRequest } from "../../utils/apicall";
 import { ContinentWrap } from "./style";
+import { ContinentProp } from "./type";
 
 function ContinentPage() {
   const { inputValue } = useContext(SearchContext);
-  const [data, setData] = useState<CountryProp[]>();
+  const [data, setData] = useState<ContinentProp[] | undefined>();
+
+  const navigate = useNavigate();
 
   useQuery(
     ["continents"],
@@ -28,18 +32,7 @@ function ContinentPage() {
       <OuterLayout>
         ContinentPage
         {inputValue}
-        <div className="box">
-          {data
-            ?.sort((a, b) => (a.name.official > b.name.official ? 1 : -1))
-            ?.map((item, i) => (
-              <div key={i}>
-                <div className="cardbox">
-                  <img src={item?.flags.svg} alt="" />
-                  <p>{item?.name?.official}</p>
-                </div>
-              </div>
-            ))}
-        </div>
+        <DisplayPage data={data} />
       </OuterLayout>
     </ContinentWrap>
   );

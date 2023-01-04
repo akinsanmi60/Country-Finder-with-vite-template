@@ -1,16 +1,17 @@
-import React, { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import SearchContext from "../../contexts/ValueContext";
-import { CountryProp } from "../../types/type";
-import { getRequest, countryUri } from "../../utils/apicall";
-import OuterLayout from "../../styles/layout";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
+import SearchContext from "../../contexts/ValueContext";
+import OuterLayout from "../../styles/layout";
+import { CountryProp } from "../../types/type";
+import { getRequest, countryUrl } from "../../utils/apicall";
 
-function CountryCard() {
-  const { inputValue } = useContext(SearchContext);
+function TestPage() {
+  const { name } = useParams();
   const [data, setData] = useState<CountryProp[] | undefined>();
+  const searchValues = name;
 
-  useQuery(["country"], () => getRequest({ url: countryUri(inputValue) }), {
+  useQuery(["country"], () => getRequest({ url: countryUrl(searchValues) }), {
     onSuccess(e) {
       setData(e);
     },
@@ -22,7 +23,7 @@ function CountryCard() {
     <div>
       <OuterLayout>
         CountryCard
-        {inputValue}
+        <p>{name}</p>
         <div>
           <img src={data?.[0]?.flags?.png} alt="" />
           <p>{data?.[0]?.name?.common}</p>
@@ -32,4 +33,4 @@ function CountryCard() {
   );
 }
 
-export default CountryCard;
+export default TestPage;

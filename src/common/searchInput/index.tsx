@@ -44,38 +44,10 @@ function SearchInput() {
     },
     refetchOnWindowFocus: false,
   });
+  console.log(data);
 
-  const submitForm = (avilaInputValue: InputProp) => {
-    if (avilaInputValue.searchValue === "") {
-      toast({
-        description: "The search field is empty. Kindly enter a search name",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-      return;
-    }
-
-    // country name integration
-    const newValueStr =
-      avilaInputValue.searchValue.charAt(0).toUpperCase() +
-      avilaInputValue.searchValue.slice(1);
-
-    const nameCheckSearch = data
-      ?.map(
-        item =>
-          item?.name?.common || item?.name?.official || item?.name?.official,
-      )
-      ?.toString()
-      .includes(newValueStr);
-    if (nameCheckSearch === true) {
-      pushToLocalStorage(newValueStr);
-      setInputValue(newValueStr);
-      navigate("/countrysearch");
-      return;
-    }
-
-    // continent integration
+  // inputValue validation
+  const continentValidation = (avilaInputValue: InputProp) => {
     const words = avilaInputValue.searchValue.split(" ");
     const newValueStrB = words
       .map(word => {
@@ -90,9 +62,74 @@ function SearchInput() {
     if (continentsCheckSearch === true) {
       pushToLocalStorage(newValueStrB);
       setInputValue(newValueStrB);
-      navigate("/continentsearch");
+      navigate("continentsearch");
       return;
     }
+    return;
+  };
+
+  const nameValidation = (avilaInputValue: InputProp) => {
+    const newValueStr =
+      avilaInputValue.searchValue.charAt(0).toUpperCase() +
+      avilaInputValue.searchValue.slice(1);
+
+    const nameCheckSearch = data
+      ?.map(item => item?.name?.common || item?.name?.official)
+      ?.toString()
+      .includes(newValueStr);
+    if (nameCheckSearch === true) {
+      pushToLocalStorage(newValueStr);
+      setInputValue(newValueStr);
+      navigate("/countrysearch");
+      return;
+    }
+  };
+
+  const demonymsValidation = (avilaInputValue: InputProp) => {
+    const newValueStr =
+      avilaInputValue.searchValue.charAt(0).toUpperCase() +
+      avilaInputValue.searchValue.slice(1);
+
+    const demonymsCheckSearch = data
+      ?.map(item => item?.demonyms?.eng.f || item?.demonyms?.eng.m)
+      ?.toString()
+      .includes(newValueStr);
+    if (demonymsCheckSearch === true) {
+      pushToLocalStorage(newValueStr);
+      navigate("countrysearch");
+      return;
+    }
+  };
+
+  const subregionValidation = (avilaInputValue: InputProp) => {
+    const newValueStr =
+      avilaInputValue.searchValue.charAt(0).toUpperCase() +
+      avilaInputValue.searchValue.slice(1);
+
+    const subregionCheckSearch = data
+      ?.map(item => item?.subregion)
+      ?.toString()
+      .includes(newValueStr);
+    if (subregionCheckSearch === true) {
+      pushToLocalStorage(newValueStr);
+      navigate("regionsearch");
+      return;
+    }
+  };
+
+  const submitForm = (avilaInputValue: InputProp) => {
+    if (avilaInputValue.searchValue === "") {
+      toast({
+        description: "The search field is empty. Kindly enter a search name",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    continentValidation(avilaInputValue);
+    nameValidation(avilaInputValue);
 
     reset();
   };

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const InputWrap = styled.div`
   Input {
-    width: 40vw;
+    width: 100%;
     padding: 22px;
     border-radius: 100px;
     border-color: #0e2038;
