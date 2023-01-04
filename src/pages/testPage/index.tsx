@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import SearchContext from "../../contexts/ValueContext";
 import OuterLayout from "../../styles/layout";
-import { CountryProp } from "../../types/type";
 import { getRequest, countryUrl } from "../../utils/apicall";
+import { CountryProp } from "../../types/type";
 
 function TestPage() {
   const { name } = useParams();

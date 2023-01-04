@@ -18,7 +18,7 @@ type CurrencyProp = {
   symbol: string;
 };
 
-export type CountryProp = {
+export type ContinentProp = {
   altSpellings: string[];
   area: number;
   borders?: string[] | undefined;

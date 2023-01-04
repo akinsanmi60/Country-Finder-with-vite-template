@@ -1,40 +1,34 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import DisplayPage from "../../common/DisplayCountries";
+import { useQuery } from "@tanstack/react-query";
+import DisplayCoutries from "../../common/DisplayCountries";
 import SearchContext from "../../contexts/ValueContext";
-import OuterLayout from "../../styles/layout";
 import { continentUrl, getRequest } from "../../utils/apicall";
-import { ContinentWrap } from "./style";
 import { ContinentProp } from "./type";
 
 function ContinentPage() {
+  const title = "Continent Page";
   const { inputValue } = useContext(SearchContext);
-  const [data, setData] = useState<ContinentProp[] | undefined>();
-
-  const navigate = useNavigate();
+  const [continentData, setContinentData] = useState<
+    ContinentProp[] | undefined
+  >();
 
   useQuery(
     ["continents"],
     () => getRequest({ url: continentUrl(inputValue) }),
     {
       onSuccess(e) {
-        setData(e);
+        setContinentData(e);
       },
       refetchOnWindowFocus: false,
     },
   );
 
-  console.log(data);
+  console.log(continentData);
 
   return (
-    <ContinentWrap>
-      <OuterLayout>
-        ContinentPage
-        {inputValue}
-        <DisplayPage data={data} />
-      </OuterLayout>
-    </ContinentWrap>
+    <>
+      <DisplayCoutries data={continentData} headTitle={title} />
+    </>
   );
 }
 

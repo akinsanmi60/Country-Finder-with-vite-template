@@ -5,24 +5,18 @@ import { useForm } from "react-hook-form";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import FormField from "../../common/FormField";
 import { FcSearch } from "react-icons/fc";
-import { CountryProp } from "../../types/type";
 import { InputWrap } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import SearchContext, { pushToLocalStorage } from "../../contexts/ValueContext";
+import { ContinentProp } from "./type";
 
-type CurrencyProp = {
-  [x: string]: {
-    name: string;
-    symbol: string;
-  };
-};
 type InputProp = {
   searchValue: string;
 };
 
 function SearchInput() {
-  const [data, setData] = useState<CountryProp[]>();
+  const [data, setData] = useState<ContinentProp[]>();
   const { register, handleSubmit, reset } = useForm<InputProp>({});
   const navigate = useNavigate();
   const toast = useToast();
@@ -130,6 +124,7 @@ function SearchInput() {
 
     continentValidation(avilaInputValue);
     nameValidation(avilaInputValue);
+    subregionValidation(avilaInputValue);
 
     reset();
   };

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContinentWrap = styled.div`
+export const DisplayWrap = styled.div`
   .box {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

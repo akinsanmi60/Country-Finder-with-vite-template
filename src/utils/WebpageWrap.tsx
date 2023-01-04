@@ -1,5 +1,3 @@
-/* eslint-disable react/function-component-definition */
-/* eslint-disable react/destructuring-assignment */
 import React from "react";
 import Navbar from "../common/Header";
 import Footer from "../common/Footer";

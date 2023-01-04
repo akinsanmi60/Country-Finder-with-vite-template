@@ -1,37 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
+import DisplayCoutries from "../../common/DisplayCountries";
+import { ContinentProp } from "../../common/DisplayCountries/type";
 import SearchContext from "../../contexts/ValueContext";
-import { CountryProp } from "../../types/type";
 import { getRequest, subRegiontUrl } from "../../utils/apicall";
 
 function RegionPage() {
+  const title = "Region Page";
+
   const { inputValue } = useContext(SearchContext);
-  const [data, setData] = useState<CountryProp[]>();
+  const [regionData, setRegionData] = useState<ContinentProp[] | undefined>();
 
   useQuery(["regions"], () => getRequest({ url: subRegiontUrl(inputValue) }), {
     onSuccess(e) {
-      setData(e);
+      setRegionData(e);
     },
     refetchOnWindowFocus: false,
   });
 
-  console.log(data);
   return (
-    <div>
-      RegionPage
-      <div className="box">
-        {data
-          ?.sort((a, b) => (a.name.official > b.name.official ? 1 : -1))
-          ?.map((item, i) => (
-            <div key={i}>
-              <div className="cardbox">
-                <img src={item?.flags.svg} alt="" />
-                <p>{item?.name?.official}</p>
-              </div>
-            </div>
-          ))}
-      </div>
-    </div>
+    <>
+      <DisplayCoutries data={regionData} headTitle={title} />
+    </>
   );
 }
 
